@@ -1,0 +1,11 @@
+[project]
+name = "reserving-gym"
+version = "0.1.0"
+description = "Practice problems for loss reserving"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "chainladder>=0.10.1",
+    "ipykernel>=7.3.0",
+    "pandas",
+]
