@@ -1,0 +1,8 @@
+# Personal files that are not committed (e.g. copyrighted material)
+local/
+CLAUDE.local.md
+
+.venv/
+.idea/
+
+scratch*.ipynb
