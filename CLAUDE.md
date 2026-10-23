@@ -101,6 +101,17 @@ Add new entries here as problems are solved.
   LDF-based pattern. No premium-weighted loss-ratio payout pattern, no
   Huerlimann individual/collective loss ratio reserves, no optimal credibility
   weights (`Z = p/(p+sqrt(p))`), no MSE (Exam 7 2019 Q2).
+- **Bug**: `cl.ValuationCorrelation(total=True).z_critical` builds its range
+  from the sum of the variances instead of E[Z] +/- z*sd and compares Var, not
+  Z, so it says "not critical" when Mack's test rejects (Exam 7 2019 Q7: Z=1,
+  E=3.25, Var=1.0625, correct range 1.23-5.27). Also no per-diagonal S/L/Z
+  table and no weighted residual diagnostics.
+- **Bug**: `cl.TweedieGLM` documents `alpha` (0 = unpenalized) but never passes
+  it to `sklearn.TweedieRegressor`, so a ridge penalty (alpha=1) is always
+  applied and the fit is not the MLE. Exam 7 2019 Q12: chain-ladder-equivalent
+  ODP GLM should give AY2018 ultimate 757.9, `TweedieGLM` gives 804.7. Also no
+  `ultimate_`/`ibnr_`/`scale_`/residuals. Workaround: patsy + sklearn with
+  alpha=0 (see the notebook).
 
 ## Status / open items
 
@@ -111,5 +122,8 @@ Add new entries here as problems are solved.
 - `problems/exam_7/2019/2019_2.ipynb` is solved (Huerlimann: R_GB 1,751, R_c 1,786; the question's "2008" labels don't match the 2016-2018 data, so AY 2008 was read as the latest year, 2018).
 - `problems/exam_7/2019/2019_3.ipynb` is solved (Huerlimann Neuhaus reserve total 254; part b: collective ELR assumption fails, 12-month loss ratios 40/50/70%).
 - `problems/exam_7/2019/2019_6.ipynb` is solved (Clark Cape Cod with given omega/theta: ELR 60.4%, AY2018 fitted incremental 382.2, normalized residual -0.080, AY2016 ultimate 6,316 using truncation average age 114 (G(120) would give 6,415)). `ClarkLDF` cannot take fixed omega/theta/scale or a truncation age.
+- `problems/exam_7/2019/2019_7.ipynb` is solved (Mack calendar-year test: Z=1, range 1.23-5.27, reject; part b: case reserve strengthening explains the residual graph, sustained trend and payment acceleration do not). Read the graph image `2019_7.png`.
+- `problems/exam_7/2019/2019_12.ipynb` is solved (Taylor EDF/Tweedie conceptual parts; ODP cross-classified GLM AY2018 ultimate 757.9, same as chain ladder; assumed covariates = origin + development).
+- `problems/exam_7/2019/2019_11.ipynb` is solved (Verrall Bayesian Z=p/(beta*phi+p): AY2018 Bayesian ultimate 4,375; 2016 prior variance ~1.72x 2017 assuming equal phi; Meyers CCL log mean 8.4916; no Bayesian/CCL in chainladder).
 - Need more problems from the user.
 - `.gitignore` covers `.venv/`, `.idea/`, `local/` and `CLAUDE.local.md` (personal files).
