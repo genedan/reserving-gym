@@ -55,6 +55,33 @@ and record the gap (see "Findings log").
   triangle form (incremental or cumulative) where the method allows.
   Layout in 2019_2.ipynb: gaps first, then the sketch.
 
+## Graphs and pictures
+
+When solving a problem or explaining a formula, draw a figure whenever it would
+help a human follow the work. This is encouraged, not just allowed. Good
+candidates: highlighting which triangle cells feed a formula (as in
+`studies/hurlimann/`), fitted curves against data, residual plots, a payout
+pattern cut at the diagonal, or before/after comparisons of two methods.
+
+- Put figures in the notebook next to the calculation they explain, with a short
+  markdown note saying how to read them. Prefer matplotlib (already a
+  dependency); add others with `uv add` only if needed.
+- Compute the plotted numbers from the same code as the solution, so a figure
+  can't disagree with the answer. Put the arithmetic in the figure title or
+  labels where it fits.
+- Check a figure before relying on it: render it to PNG and look at it (overlapping
+  labels, wrong axes, cells off by one) before telling the user it is done.
+- Use illustrative data only when the problem has none, and label it clearly as
+  synthetic. Never present invented numbers as exam or paper data. Use a fixed
+  random seed so the figures reproduce.
+- Keep figures readable in a notebook (about 12-14 inches wide at most) and in
+  both light and dark themes where practical (use explicit colors and white cell
+  borders, not defaults that vanish on a dark background).
+- Don't pad: a figure should show something the text and tables don't. Skip it
+  when a table says it better.
+- Executed outputs make notebooks large (a few hundred KB with images). That is
+  acceptable, but say so when committing.
+
 ## Papers (`papers/`)
 
 The Exam 7 readings in this folder are publicly available. The CAS "7_*" files come from the 2021 text-reference set,
